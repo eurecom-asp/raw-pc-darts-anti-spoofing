@@ -55,7 +55,7 @@ python evaluate.py --arch=ARCH --model=/path/to/your/saved/models/epoch_x.pth --
 also replace `ARCH` with the corresponding architecture, and `SCALE` with the corresponding scale.
 
 #### Pre-trained models
-The pre-trained models are too large for uploading, will find a way to share latter.
+The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models.
 
 #### Citation
 If you find this repository useful, please consider citing:
