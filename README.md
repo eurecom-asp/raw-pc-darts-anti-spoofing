@@ -5,6 +5,7 @@ This repository includes the code to reproduce our paper [Raw Differentiable Arc
 ```
 pip install -r requirements.txt
 ```
+Codes were tested with python==3.8.8.
 
 ### Dataset
 The ASVspoof2019 database can be downloaded from [here](https://datashare.ed.ac.uk/handle/10283/3336)
