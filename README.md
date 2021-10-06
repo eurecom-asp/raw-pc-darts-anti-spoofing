@@ -56,7 +56,7 @@ python evaluate.py --arch=ARCH --model=/path/to/your/saved/models/epoch_x.pth --
 also replace `ARCH` with the corresponding architecture, and `SCALE` with the corresponding scale.
 
 #### Pre-trained models
-The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models.
+The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models through `surname AT eurecom DOT fr`.
 
 #### Citation
 If you find this repository useful, please consider citing:
@@ -72,4 +72,4 @@ If you find this repository useful, please consider citing:
 #### Acknowledgement
 Codes are based on the implementations of [pc-darts-anti-spoofing
 ](https://github.com/eurecom-asp/pc-darts-anti-spoofing), [rawnet2-antispoofing
-](https://github.com/eurecom-asp/rawnet2-antispoofing) and and [project-NN-Pytorch-scripts](https://github.com/nii-yamagishilab/project-NN-Pytorch-scripts).
+](https://github.com/eurecom-asp/rawnet2-antispoofing) and [project-NN-Pytorch-scripts](https://github.com/nii-yamagishilab/project-NN-Pytorch-scripts).
