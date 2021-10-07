@@ -5,10 +5,10 @@ This repository includes the code to reproduce our paper [Raw Differentiable Arc
 ```
 pip install -r requirements.txt
 ```
-Codes were tested with python==3.8.8.
+Codes were tested with python==3.8.8 and CUDA Version==11.2
 
 ### Dataset
-The ASVspoof2019 database can be downloaded from [here](https://datashare.ed.ac.uk/handle/10283/3336)
+The ASVspoof 2019 database can be downloaded from [here](https://datashare.ed.ac.uk/handle/10283/3336)
 
 The extracted data should be orginased as:
 * LA/
@@ -47,6 +47,12 @@ To train with the reported best architecture in the paper, using 8 layers, 64 in
 python train_model.py --arch=ARCH --layers=8 --init_channels=64 --sinc_scale=linear --pre_trained=pre_trained_models/trainable_linear_in_search.pth
 ```
 replace `ARCH` with `"Genotype(normal=[('dil_conv_5', 0), ('dil_conv_5', 1), ('dil_conv_5', 0), ('max_pool_3', 2), ('std_conv_5', 1), ('dil_conv_5', 0), ('dil_conv_3', 0), ('std_conv_3', 1)], normal_concat=range(2, 6), reduce=[('dil_conv_5', 0), ('dil_conv_5', 1), ('dil_conv_3', 2), ('dil_conv_3', 0), ('dil_conv_3', 1), ('dil_conv_5', 3), ('dil_conv_3', 1), ('dil_conv_3', 0)], reduce_concat=range(2, 6))"`
+
+Because GRU layers are used in Raw-PC-DARTS, to keep the results exactly same with a fixed seed, please try:
+```
+CUBLAS_WORKSPACE_CONFIG=:16:8 python train_search/model.py --seed=0
+```
+See the official document for this at [here](https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html).
 
 #### Evaluate
 To evaluate the saved model using the same architecture in train from scratch on LA Evaluation partition:
