@@ -44,11 +44,11 @@ replace `ARCH` with `"Genotype(normal=[('dil_conv_5', 1), ('dil_conv_3', 0), ('d
 
 To train with the reported best architecture in the paper, using 8 layers, 64 initial channels and masked, also learned linear scale sinc layer:
 ```
-python train_model.py --arch=ARCH --layers=8 --init_channels=64 --sinc_scale=linear --pre_trained=pre_trained_models/trainable_linear_in_search.pth
+python train_model.py --arch=ARCH_trainable_linear --layers=8 --init_channels=64 --sinc_scale=linear --pre_trained=PATH
 ```
-replace `ARCH` with `"Genotype(normal=[('dil_conv_5', 0), ('dil_conv_5', 1), ('dil_conv_5', 0), ('max_pool_3', 2), ('std_conv_5', 1), ('dil_conv_5', 0), ('dil_conv_3', 0), ('std_conv_3', 1)], normal_concat=range(2, 6), reduce=[('dil_conv_5', 0), ('dil_conv_5', 1), ('dil_conv_3', 2), ('dil_conv_3', 0), ('dil_conv_3', 1), ('dil_conv_5', 3), ('dil_conv_3', 1), ('dil_conv_3', 0)], reduce_concat=range(2, 6))"`
+replace `ARCH_trainable_linear` with the corresponding architecture and replace `PATH` with the path of the pre-trained model saved during architecture search (for example, `pre_trained_models/trainable_linear_in_search.pth`). Please contact the first author if you need these files.
 
-Because GRU layers are used in Raw-PC-DARTS, to keep the results exactly same with a fixed seed, please try:
+Because GRU layers are used in Raw-PC-DARTS, to keep the results exactly same (espically the initial architecture of searching stage) with a fixed seed, please try:
 ```
 CUBLAS_WORKSPACE_CONFIG=:16:8 python train_search/model.py --seed=0
 ```
@@ -57,9 +57,9 @@ See the official document for this at [here](https://pytorch.org/docs/stable/gen
 #### Evaluate
 To evaluate the saved model using the same architecture in train from scratch on LA Evaluation partition:
 ```
-python evaluate.py --arch=ARCH --model=/path/to/your/saved/models/epoch_x.pth --layers=8 --init_channels=64 --frontend=SCALE
+python evaluate.py --arch=ARCH --model=PATH --layers=8 --init_channels=64 --frontend=SCALE
 ```
-also replace `ARCH` with the corresponding architecture, and `SCALE` with the corresponding scale.
+also replace `ARCH` with the corresponding architecture, `PATH` with `/path/to/your/saved/models/epoch_x.pth`, and `SCALE` with the corresponding scale.
 
 #### Pre-trained models
 The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models through `surname AT eurecom DOT fr`.
@@ -76,6 +76,8 @@ If you find this repository useful, please consider citing:
 }
 ```
 #### Acknowledgement
+This work is supported by the ExTENSoR project funded by the French Agence Nationale de la Recherche (ANR).
+
 Codes are based on the implementations of [pc-darts-anti-spoofing
 ](https://github.com/eurecom-asp/pc-darts-anti-spoofing), [rawnet2-antispoofing
 ](https://github.com/eurecom-asp/rawnet2-antispoofing) and [project-NN-Pytorch-scripts](https://github.com/nii-yamagishilab/project-NN-Pytorch-scripts).
