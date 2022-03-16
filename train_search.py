@@ -26,19 +26,19 @@ if __name__ == '__main__':
                     help='location of the data corpus')          
     parser.add_argument('--valid_freq', type=int, default=1, help='validate frequency')
     parser.add_argument('--report_freq', type=int, default=1000, help='report frequency in training')
-    parser.add_argument('--layers', type=int, default=8)
-    parser.add_argument('--init_channels', type=int, default=64)
-    parser.add_argument('--sinc_scale', type=str, default='mel', help='the ytpe of sinc layer')
-    parser.add_argument('--sinc_kernel', type=int, default=128)
-    parser.add_argument('--gru_hsize', type=int, default=1024)
-    parser.add_argument('--gru_layers', type=int, default=3)
+    parser.add_argument('--layers', type=int, default=8, help='number of cells of the network')
+    parser.add_argument('--init_channels', type=int, default=64, help='number of the initial channels of the network')
+    parser.add_argument('--sinc_scale', type=str, default='mel', help='the type of sinc layer')
+    parser.add_argument('--sinc_kernel', type=int, default=128, help='kernel size of sinc layer')
+    parser.add_argument('--gru_hsize', type=int, default=1024, help='number of the features in the hidden state of gru layers')
+    parser.add_argument('--gru_layers', type=int, default=3, help='number of gru layers of the network')
     parser.add_argument('--trainable', dest='is_trainable', action='store_true', help='whether using trainable sinc layer')
     parser.add_argument('--batch_size', type=int, default=14)
     parser.add_argument('--num_epochs', type=int, default=30)
-    parser.add_argument('--warm_up_epoch', type=int, default=10)
+    parser.add_argument('--warm_up_epoch', type=int, default=10, help='the network architecture will not change until this epoch')
     parser.add_argument('--sr', type=int, default=16000, help='default sampling rate')
-    parser.add_argument('--lr', type=float, default=5e-5)
-    parser.add_argument('--no-mask', dest='is_mask', action='store_false', help='whether use freq mask')
+    parser.add_argument('--lr', type=float, default=5e-5, help='intial learning rate')
+    parser.add_argument('--no-mask', dest='is_mask', action='store_false', help='whether use freq mask, if not set, use mask by default')
     parser.add_argument('--weight_decay', type=float, default=3e-4)
     parser.add_argument('--seed', type=int, default=None, help='random seed')
     parser.add_argument('--comment', type=str, default='EXP', help='Comment to describe the saved mdoel')
@@ -47,8 +47,10 @@ if __name__ == '__main__':
     parser.add_argument('--arch_learning_rate', type=float, default=6e-4, help='learning rate for arch encoding')
     parser.add_argument('--arch_weight_decay', type=float, default=1e-3, help='weight decay for arch encoding')
     parser.add_argument('--rand', dest='is_rand', action='store_true', help='whether use rand start of input audio')
-
+    
+    # by default, use fixed first 4 seconds of the original audio file, not using randomly selected 4 seconds
     parser.set_defaults(is_rand=False)
+    # use mask by default
     parser.set_defaults(is_mask=True)
     parser.set_defaults(is_trainable=False)
 
@@ -61,7 +63,8 @@ if __name__ == '__main__':
     fh = logging.FileHandler(os.path.join(args.comment, 'log.txt'))
     fh.setFormatter(logging.Formatter(log_format))
     logging.getLogger().addHandler(fh)
-
+    
+    # models will be saved under this path
     model_save_path = os.path.join(args.comment, 'models')
     if not os.path.exists(model_save_path):
         os.mkdir(model_save_path)
@@ -71,6 +74,8 @@ if __name__ == '__main__':
     eval_protocol = 'ASVspoof2019.LA.cm.dev.trl.txt'
 
     OUTPUT_CLASSES = 2
+    
+    # set random seed
     if args.seed:
         cudnn.benchmark = False
         torch.backends.cudnn.deterministic = True
