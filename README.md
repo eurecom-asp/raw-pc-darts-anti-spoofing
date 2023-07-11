@@ -62,7 +62,8 @@ python evaluate.py --arch=ARCH --model=PATH --layers=8 --init_channels=64 --fron
 also replace `ARCH` with the corresponding architecture, `PATH` with `/path/to/your/saved/models/epoch_x.pth`, and `SCALE` with the corresponding scale.
 
 #### Pre-trained models
-The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models through `surname AT eurecom DOT fr`.
+~~The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models through `surname AT eurecom DOT fr`.~~
+The pre-trained models are uploaded to [here](https://nextcloud.eurecom.fr/s/4DeWffZH6YG8enq).
 
 #### Citation
 If you find this repository useful, please consider citing:
