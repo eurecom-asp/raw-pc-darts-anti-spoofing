@@ -63,6 +63,7 @@ also replace `ARCH` with the corresponding architecture, `PATH` with `/path/to/y
 
 #### Pre-trained models
 ~~The pre-trained models are too large to upload, so only the final scores are uploaded under `/scores`. You can contact the first author for the saved models through `surname AT eurecom DOT fr`.~~
+
 The pre-trained models are uploaded to [here](https://nextcloud.eurecom.fr/s/4DeWffZH6YG8enq).
 
 #### Citation
